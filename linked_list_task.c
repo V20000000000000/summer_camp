@@ -38,3 +38,5 @@ int main() {
     display_students();
     return 0;
 }
+
+// gcc -o linked_list_task linked_list_task.c list.c
