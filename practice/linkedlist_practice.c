@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// struct nide
 struct node
 {
     int value;
@@ -11,11 +10,11 @@ struct node
     struct node* prev;
 };
 
-void insertAtHead(struct node** head, int newValue, char newName[30])
+void insertAtHead(struct node** head, int value, char name[])
 {
     struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    newNode->value = newValue;
-    strcpy(newNode->name, newName);
+    newNode->value = value;
+    strcpy(newNode->name, name);
     newNode->next = *head;
     newNode->prev = NULL;
     if(*head != NULL)
@@ -23,11 +22,25 @@ void insertAtHead(struct node** head, int newValue, char newName[30])
         (*head)->prev = newNode;
     }
     *head = newNode;
+}
 
+void printList(struct node* head)
+{
+    struct node* temp = head;
+    while(temp != NULL)
+    {
+        printf("%d %s\n", temp->value, temp->name);
+        temp = temp->next;
+    }
+
+    printf("\n");
 }
 
 int main()
 {
-    struct node* head = NULL; 
-
+    struct node* head = NULL;
+    insertAtHead(&head, 1, "Kevin");
+    insertAtHead(&head, 2, "John");
+    insertAtHead(&head, 3, "Doe");
+    printList(head);
 }
