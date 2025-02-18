@@ -175,11 +175,11 @@ int main()
     // check whether the student is last
     list_for_each(it, &head) {
         if (list_is_last(it, &head)) {
-            printf("list_entry(it, struct student, list)->name is last elements\n");
+            printf("%s is the last elements\n", list_entry(it, struct student, list)->name);
         }
         else
         {
-            printf("list_entry(it, struct student, list)->name is not last elements\n");
+            printf("%s is not the last elements\n", list_entry(it, struct student, list)->name);
         }
     }
 
