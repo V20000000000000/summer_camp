@@ -60,9 +60,9 @@ int main()
 
     // Removing student's age is 22
     list_for_each(it, &head) {
-        while(list_entry(it, struct student, list)->age == 22)
-        {
+        if (list_entry(it, struct student, list)->age == 22) {
             list_del(it);
+            break;
         }
     }
 
