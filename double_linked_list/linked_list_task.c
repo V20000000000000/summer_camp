@@ -56,7 +56,6 @@ int main()
 
     printf("=====================list_del<pos>====================\n");
     printf("Removing student's age is 22\n");
-    printf("Redisplay list after removing\n");
 
     // Removing student's age is 22
     list_for_each(it, &head) {
@@ -68,12 +67,123 @@ int main()
 
     // traversing the list using list_for_each
     printf("traversing the list using list_for_each\n");
-    printf("list_for_each()\n");
 
     list_for_each(it, &head) {
         printf("Student Name: %s Age: %d Score: %d\n", list_entry(it, struct student, list)->name, list_entry(it, struct student, list)->age, list_entry(it, struct student, list)->score);
     }
-    printf("\n");
+    printf("\n\n");
+
+    /*
+        Add a student whose age is 22 into list (head) and print to terminal
+    */
+
+    printf("=====================list_add====================\n");
+    printf("Add a student whose age is 22 into list (head)\n");
+    
+    struct student student6 = { .age = 22, .name = "Calvin6", .score = 60 };
+    list_add(&student6.list, &head);
+
+    // traversing the list using list_for_each
+    printf("traversing the list using list_for_each\n");
+
+    list_for_each(it, &head) {
+        printf("Student Name: %s Age: %d Score: %d\n", list_entry(it, struct student, list)->name, list_entry(it, struct student, list)->age, list_entry(it, struct student, list)->score);
+    }
+
+    printf("\n\n");
+
+    /*
+        Removing student's age is 22 and print to terminal
+    */
+
+    printf("=====================list_del<pos>====================\n");
+    printf("Removing student's age is 22\n");
+
+    // Removing student's age is 22
+    list_for_each(it, &head) {
+        if (list_entry(it, struct student, list)->age == 22) {
+            list_del(it);
+            break;
+        }
+    }
+
+    // traversing the list using list_for_each
+    printf("traversing the list using list_for_each\n");
+
+    list_for_each(it, &head) {
+        printf("Student Name: %s Age: %d Score: %d\n", list_entry(it, struct student, list)->name, list_entry(it, struct student, list)->age, list_entry(it, struct student, list)->score);
+    }
+    printf("\n\n");
+
+
+    /*
+        add a student whose age is 22 into list (tail) and print to terminal
+    */
+
+    printf("=====================list_add_tail====================\n");
+    printf("Add a student whose age is 22 into list (tail)\n");
+
+    list_add_tail(&student2.list, &head);
+
+    // traversing the list using list_for_each
+    printf("traversing the list using list_for_each\n");
+
+    list_for_each(it, &head) {
+        printf("Student Name: %s Age: %d Score: %d\n", list_entry(it, struct student, list)->name, list_entry(it, struct student, list)->age, list_entry(it, struct student, list)->score);
+    }
+    printf("\n\n");
+
+    /*
+        Replace a old student<age = 24> by new student<age=27>
+    */
+
+    printf("=====================list_replace====================\n");
+    printf("Replace a old student<age = 24> by new student<age=27>\n");
+
+    struct student student7 = { .age = 27, .name = "Calvin7", .score = 100 };
+    
+    //Replacing student<age = 24> by student<age = 27>
+    list_for_each(it, &head) {
+        if (list_entry(it, struct student, list)->age == 24) {
+            list_replace(it, &student7.list);
+            break;
+        }
+    }
+
+    // traversing the list using list_for_each
+    printf("traversing the list using list_for_each\n");
+
+    list_for_each(it, &head) {
+        printf("Student Name: %s Age: %d Score: %d\n", list_entry(it, struct student, list)->name, list_entry(it, struct student, list)->age, list_entry(it, struct student, list)->score);
+    }
+
+    printf("\n\n");
+
+
+    /*
+        To check wheether the student is last
+    */
+
+    printf("=====================list_is_last====================\n");
+    printf("To check wheether the student is last\n");
+
+    //traersing the list using list_for_each
+    list_for_each(it, &head) {
+        printf("Student Name: %s Age: %d Score: %d\n", list_entry(it, struct student, list)->name, list_entry(it, struct student, list)->age, list_entry(it, struct student, list)->score);
+    }
+
+    // check whether the student is last
+    list_for_each(it, &head) {
+        if (list_is_last(it, &head)) {
+            printf("list_entry(it, struct student, list)->name is last elements\n");
+        }
+        else
+        {
+            printf("list_entry(it, struct student, list)->name is not last elements\n");
+        }
+    }
+
+    printf("\n\n");
 
     return 0;
 }
