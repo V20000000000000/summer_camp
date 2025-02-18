@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "list.h"  // 使用我們自訂的 list.h
+#include "list.h"  
 
 struct student {
     struct list_head list;
