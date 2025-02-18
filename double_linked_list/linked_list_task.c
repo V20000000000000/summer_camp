@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "list.h"
 
 // struct student
@@ -20,7 +22,7 @@ int main()
     LIST_HEAD(head);
 
     /*
-        ADD FIVE STUDENT INTO LINKED LIST AND PRINT TO TERMINAL
+    * ADD FIVE STUDENT INTO LINKED LIST AND PRINT TO TERMINAL
     */
 
     // add five student into linked list
@@ -51,7 +53,7 @@ int main()
 
 
     /*
-        Removing student's age is 22 and print to terminal
+    * Removing student's age is 22 and print to terminal
     */
 
     printf("=====================list_del<pos>====================\n");
@@ -74,7 +76,7 @@ int main()
     printf("\n\n");
 
     /*
-        Add a student whose age is 22 into list (head) and print to terminal
+    * Add a student whose age is 22 into list (head) and print to terminal
     */
 
     printf("=====================list_add====================\n");
@@ -93,7 +95,7 @@ int main()
     printf("\n\n");
 
     /*
-        Removing student's age is 22 and print to terminal
+    * Removing student's age is 22 and print to terminal
     */
 
     printf("=====================list_del<pos>====================\n");
@@ -117,7 +119,7 @@ int main()
 
 
     /*
-        add a student whose age is 22 into list (tail) and print to terminal
+    * add a student whose age is 22 into list (tail) and print to terminal
     */
 
     printf("=====================list_add_tail====================\n");
@@ -134,7 +136,7 @@ int main()
     printf("\n\n");
 
     /*
-        Replace a old student<age = 24> by new student<age=27>
+    * Replace a old student<age = 24> by new student<age=27>
     */
 
     printf("=====================list_replace====================\n");
@@ -161,7 +163,7 @@ int main()
 
 
     /*
-        To check wheether the student is last
+    * To check whether the student is last
     */
 
     printf("=====================list_is_last====================\n");
