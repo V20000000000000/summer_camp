@@ -9,11 +9,11 @@
     This will generate the executable file task_generator.exe in the task_generator/ directory.
 
 ##4. Execution and Usage Instructions:
-    Input and parameter settings can be adjusted in the config file.
-    After compilation, the task_generator.exe file will be located in task_generator/.
-    To execute, simply run the program in the terminal.
-    The generated results will be saved in result.txt, formatted according to the example in the course materials.
-    For better readability, the terminal output might be more intuitive and straightforward than the result file.
+    Input and parameter settings can be adjusted in the config file.  
+    After compilation, the task_generator.exe file will be located in task_generator/.  
+    To execute, simply run the program in the terminal.  
+    The generated results will be saved in result.txt, formatted according to the example in the course materials.  
+    For better readability, the terminal output might be more intuitive and straightforward than the result file.  
 
 ##5. File Structure and Descriptions:
     task_generator/ 
