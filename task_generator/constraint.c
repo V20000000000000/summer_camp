@@ -13,12 +13,13 @@
 int FactorCount(int n) {
     int count = 0;
     for (int i = 1; i <= n; i++) {
-        if (n % i == 0) {
+        if (n % i == 0 && i >= 20) {
             count++;
         }
     }
     return count;
 }
+
 #endif // FACTORCOUNT_H
 
 // print constraint

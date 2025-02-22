@@ -6,11 +6,11 @@ struct task
     int id;
     int period;
     int wcet; // worst case execution time
-    int utulization;
+    float utulization;
 };
 
 //create # of tasks
-struct task* createTasksSet(int numTasks, int hyperperiod);
+struct task* createTasksSet(int hyperperiod, float totalSystemUtilization);
 
 //print tasks
 void printTasksSet();

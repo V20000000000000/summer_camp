@@ -5,7 +5,7 @@
 
 #define MAX_LINE 256
 
-struct config c;  // 在這裡宣告真正的變數
+struct config c;  // global variable
 
 void readConfig(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -36,10 +36,10 @@ void readConfig(const char *filename) {
             } else if (strcmp(trimKey, "Min_utilization") == 0) {
                 c.minTotalSystemUtilization = atof(trimValue);
                 printf("Min_utilization: %.2f\n", c.minTotalSystemUtilization);
-            } else if (strcmp(trimKey, "Tasks_per_set") == 0) {
+            } else if (strcmp(trimKey, "tasks_per_set") == 0) {
                 c.tasks_per_set = atoi(trimValue);
                 printf("Tasks_per_set: %d\n", c.tasks_per_set);
-            } else if (strcmp(trimKey, "TaskSet_count") == 0) {
+            } else if (strcmp(trimKey, "taskSet_count") == 0) {
                 c.teskSet_count = atoi(trimValue);
                 printf("TaskSet_count: %d\n", c.teskSet_count);
             }
@@ -49,7 +49,7 @@ void readConfig(const char *filename) {
     fclose(file);
 }
 
-// 提供存取函式
+// get functions
 int getMaxHyperperiod() { return c.maxHyperperiod; }
 int getMinHyperperiod() { return c.minHyperperiod; }
 int getTasksPerSet() { return c.tasks_per_set; }
