@@ -1,19 +1,19 @@
-1. Language: C++  
-2. Compiler: Linux GNU g++
+## Language: C++  
+## Compiler: Linux GNU g++  
 
-3. Compilation Instructions:
+## Compilation Instructions:  
     If a Makefile is available, run the following command inside the task_generator/ directory:
 
         make
 
-4. Execution and Usage Instructions:
+## Execution and Usage Instructions:
     Input and parameter settings can be adjusted in the config file.  
     After compilation, the task_generator.exe file will be located in task_generator/.  
     To execute, simply run the program in the terminal.  
     The generated results will be saved in result.txt, formatted according to the example in the course materials.  
     For better readability, the terminal output might be more intuitive and straightforward than the result file.  
 
-5. File Structure and Descriptions:
+## File Structure and Descriptions:
     task_generator/   
      │─ config.txt-----------------------# Configuration file for input parameters  
      │─ constraint.c---------------------# Implementation of constraint, including set and get function  
