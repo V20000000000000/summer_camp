@@ -1,10 +1,12 @@
-## Language: C++  
-## Compiler: Linux GNU g++  
+## Language: 
+  C++  
+## Compiler:  
+  Linux GNU g++  
 
 ## Compilation Instructions:  
-    If a Makefile is available, run the following command inside the task_generator/ directory:
-
-        make
+  If a Makefile is available, run the following command inside the task_generator/ directory:
+    
+    make
 
 ## Execution and Usage Instructions:
     Input and parameter settings can be adjusted in the config file.  
