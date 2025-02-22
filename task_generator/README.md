@@ -17,7 +17,7 @@
 
 5. File Structure and Descriptions:
     task_generator/ 
-        │── config.txt                      # Configuration file for input parameters 
+        │── config.txt                      # Configuration file for input parameters \n
         │── constraint.c                    # Implementation of constraint, including set and get function
         │── constraint.h                    # Header file for constraint definitions 
         │── main.c                          # Main entry point of the program, including writing result
