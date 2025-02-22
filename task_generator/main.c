@@ -49,13 +49,13 @@ int main()
         for (int j = 0; j < getTasksPerSet() - 1; j++) {
             fprintf(file, " %d,", tasksSet[i][j].wcet);
         }
-        fprintf(file, " %d", tasksSet[i][getTasksPerSet()].wcet);
+        fprintf(file, " %d", tasksSet[i][getTasksPerSet()-1].wcet);
         fprintf(file, "};\n");
         fprintf(file, "task_set%d_period [] = {", i + 1);
         for (int j = 0; j < getTasksPerSet() - 1; j++) {
             fprintf(file, " %d,", tasksSet[i][j].period);
         }
-        fprintf(file, " %d", tasksSet[i][getTasksPerSet()].period);
+        fprintf(file, " %d", tasksSet[i][getTasksPerSet()-1].period);
         fprintf(file, "};\n\n");
         printTasksSet(tasksSet[i]);
         printf("===============================\n\n");
