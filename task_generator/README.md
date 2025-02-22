@@ -3,9 +3,7 @@
 
 ##3. Compilation Instructions:
     If a Makefile is available, run the following command inside the task_generator/ directory:
-
         make
-
     This will generate the executable file task_generator.exe in the task_generator/ directory.
 
 ##4. Execution and Usage Instructions:
