@@ -32,6 +32,7 @@ void printConstraint(struct constraint c)
 // set constraint
 void setConstraint(struct constraint* c)
 {
+    srand(time(NULL));
     // set hyperperiod (>20 factor, between minHyperperiod and maxHyperperiod) 
     int maxHyperperiod = getMaxHyperperiod();
     int minHyperperiod = getMinHyperperiod();
@@ -49,7 +50,7 @@ void setConstraint(struct constraint* c)
     // set total system utilization (between minTotalSystemUtilization and maxTotalSystemUtilization)
     float maxTotalSystemUtilization = getMaxTotalSystemUtilization();
     float minTotalSystemUtilization = getMinTotalSystemUtilization();
-    c->totalSystemUtilization = (float)rand() / RAND_MAX * (maxTotalSystemUtilization - minTotalSystemUtilization) + minTotalSystemUtilization;
+    c->totalSystemUtilization = minTotalSystemUtilization + (maxTotalSystemUtilization - minTotalSystemUtilization) * ((float)rand() / (float)RAND_MAX);
 }
 
 // get hyperperiod
@@ -62,4 +63,12 @@ int getHyperperiod(struct constraint c)
 float getTotalSystemUtilization(struct constraint c)
 {
     return c.totalSystemUtilization;
+}
+
+// reset total system utilization
+void randomizeTotalUtilization(struct constraint* c)
+{
+    float maxTotalSystemUtilization = getMaxTotalSystemUtilization();
+    float minTotalSystemUtilization = getMinTotalSystemUtilization();
+    c->totalSystemUtilization = minTotalSystemUtilization + (maxTotalSystemUtilization - minTotalSystemUtilization) * ((float)rand() / (float)RAND_MAX);
 }
