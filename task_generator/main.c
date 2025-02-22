@@ -30,8 +30,6 @@ int main()
     }
 
     // create multiple tasks set
-    printf("==========Create Tasks Set==========\n");
-    printf("Task Set Count: %d\n", getTaskSetCount());
     // memory allocation for multiple tasks set
     struct task** tasksSet = (struct task**)malloc(sizeof(struct task*) * getTaskSetCount());
     if (tasksSet == NULL) {
@@ -60,8 +58,8 @@ int main()
         fprintf(file, " %d", tasksSet[i][getTasksPerSet()].period);
         fprintf(file, "};\n\n");
         printTasksSet(tasksSet[i]);
+        printf("===============================\n\n");
     }
-    printf("====================================\n\n");
 
     // free memory
     for (int i = 0; i < getTaskSetCount(); i++) {

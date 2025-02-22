@@ -15,15 +15,12 @@
 
 int* find_all_factor(int n) {
     int count = 0;
-    printf("n = %d\n", n);
     // calculate the number of factors
     for (int i = 1; i <= n; i++) {
         if (n % i == 0 && i >= Min_period) {
             count++;
         }
     }
-
-    printf("count = %d\n", count);
 
     // dynamically allocate memory to store all factors and the number of factors
     int* factors = (int*)malloc((count + 1) * sizeof(int));
@@ -130,12 +127,6 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
         return NULL;
     }
 
-    //print all factors
-    printf("factors[0] = %d\n", factors[0]);
-    for (int i = 1; i <= factors[0]; i++) {
-        printf("factors[%d] = %d\n", i, factors[i]);
-    }
-
     // randomly select #(numtasks) factors from all factors with no repetition
     int numFactors = factors[0];
     int* selectedFactors = (int*)malloc(sizeof(int) * numTasks);
@@ -150,16 +141,10 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
         factors[index] = factors[numFactors--];
     }
 
-    //print selected factors
-    for (int i = 0; i < numTasks; i++) {
-        printf("selectedFactors[%d] = %d\n", i, selectedFactors[i]);
-    }
-
     free(factors);
 
     // randomly generate task utilization
     printf("totalSystemUtilization = %f\n", totalSystemUtilization);
-    printf("numTasks = %d\n", numTasks);
     float* utilizations = randomPartition(totalSystemUtilization, numTasks, Min_utilization, Max_utilization);
     if (utilizations == NULL) {
         printf("utilizations Memory allocation failed\n");
