@@ -26,7 +26,7 @@
      │─ readConfig.h---------------------# Header file for readConfig.c   
      │─ README.md------------------------# Documentation for the project   
      │─ result.txt-----------------------# Output file containing generated results   
-     │─ task.c---------------------------# Implementation of task-related functions   
+     │─ task.c---------------------------# Implementation of task-related functions and random partitioning of the total utilization  
      │─ task.h---------------------------# Header file for task definitions  
 		
 ## CAT
