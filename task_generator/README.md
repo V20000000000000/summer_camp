@@ -15,15 +15,15 @@
 
 5. File Structure and Descriptions:
     task_generator/   
-     │─ config.txt                       # Configuration file for input parameters  
-     │─ constraint.c                     # Implementation of constraint, including set and get function  
-     │─ constraint.h                     # Header file for constraint definitions  
-     │─ main.c                           # Main entry point of the program, including writing result  
-     │─ Makefile                         # Build script for compiling the project   
-     │─ readConfig.c                     # Functions to read and parse the config file   
-     │─ readConfig.h                     # Header file for readConfig.c   
-     │─ README.md                        # Documentation for the project   
-     │─ result.txt                       # Output file containing generated results   
-     │─ task.c                           # Implementation of task-related functions   
-     │─ task.h                           # Header file for task definitions  
+     │─ config.txt-----------------------# Configuration file for input parameters  
+     │─ constraint.c---------------------# Implementation of constraint, including set and get function  
+     │─ constraint.h---------------------# Header file for constraint definitions  
+     │─ main.c---------------------------# Main entry point of the program, including writing result  
+     │─ Makefile-------------------------# Build script for compiling the project   
+     │─ readConfig.c---------------------# Functions to read and parse the config file   
+     │─ readConfig.h---------------------# Header file for readConfig.c   
+     │─ README.md------------------------# Documentation for the project   
+     │─ result.txt-----------------------# Output file containing generated results   
+     │─ task.c---------------------------# Implementation of task-related functions   
+     │─ task.h---------------------------# Header file for task definitions  
 		
