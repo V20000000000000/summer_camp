@@ -3,6 +3,7 @@
 #include <time.h>
 #include "task.h"
 #include "constraint.h"
+#include "readConfig.h"
 
 #define Min_period 20
 #define Min_utilization 0.05
@@ -10,7 +11,6 @@
 
 #ifndef FIND_ALL_FACTOR
 #define FIND_ALL_FACTOR
-
 
 
 int* find_all_factor(int n) {
@@ -54,12 +54,12 @@ int* find_all_factor(int n) {
 #include <stdlib.h>
 #include <time.h>
 
-// 產生範圍內的隨機小數
+// generate random float number between min and max
 float randomFloat(float min, float max) {
     return min + (max - min) * ((float)(rand() % 10000) / 10000.0);
 }
 
-// 遞迴拆分函數
+// recursive partition
 int recursivePartition(float n, int parts, float min, float max, float *result, int index) {
     if (parts == 1) {
         if (n >= min && n <= max) {
@@ -82,7 +82,7 @@ int recursivePartition(float n, int parts, float min, float max, float *result, 
     return recursivePartition(remaining, parts - 1, min, max, result, index + 1);
 }
 
-// 主函數
+// random partition
 float* randomPartition(float n, int parts, float min, float max) {
     if (parts <= 0) return NULL;
     if (min * parts > n || max * parts < n) return NULL;
@@ -93,10 +93,10 @@ float* randomPartition(float n, int parts, float min, float max) {
         return NULL;
     }
 
-    srand(time(NULL));  // 確保隨機數不同
+    srand(time(NULL));  // seed
 
     while (!recursivePartition(n, parts, min, max, result, 0)) {
-        srand(time(NULL) + rand());  // 避免卡住相同的亂數結果
+        srand(time(NULL) + rand());  // avoid the same random number
     }
 
     return result;

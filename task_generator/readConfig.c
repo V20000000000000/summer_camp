@@ -10,7 +10,7 @@ struct config c;  // global variable
 void readConfig(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (!file) {
-        perror("無法打開設定檔");
+        perror("cannot open the config file");
         return;
     }
 
