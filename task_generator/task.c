@@ -110,7 +110,7 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
     // get the number of tasks
     int numTasks;
     numTasks = getTasksPerSet();
-    printf("numTasks = %d, hyperperiod = %d, totalSystemUtilization = %.2f\n", numTasks, hyperperiod, totalSystemUtilization);
+    printf("numTasks = %d, hyperperiod = %d, totalSystemUtilization = %f\n", numTasks, hyperperiod, totalSystemUtilization);
 
     // dynamically allocate memory to store all tasks
     struct task* tasks = (struct task*)malloc(sizeof(struct task) * numTasks);
