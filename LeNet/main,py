@@ -204,16 +204,16 @@ with open("output.txt", "w", encoding="utf-8") as file:
     ### 1x1x10 ###
     filter = np.random.rand(10) # 隨機生成10個權重
     ofmap = np.zeros(10)
-    print("\n==========Start Output Layer computation==========\n")
-    file.write("\n==========Start Output Layer computation==========\n")
+    print("\n\n\n==========Start Output Layer computation==========\n")
+    file.write("\n\n\n==========Start Output Layer computation==========\n")
     for i in range(ofmap.shape[0]):
         for j in range(ifmap.shape[0]):
             ofmap[i] += (ifmap[j] * filter[i]).sum()
     print(ofmap)
     file.write(str(ofmap))
 
-    print("\n==========End of Computation==========\n")
-    file.write("\n==========End of Computation==========\n")
+    print("\n\n==========End of Computation==========\n")
+    file.write("\n\n==========End of Computation==========\n")
 
     #divide by 100000
     for i in range(ofmap.shape[0]):
@@ -224,6 +224,13 @@ with open("output.txt", "w", encoding="utf-8") as file:
 
 
     end = t.time()
+    print("\n\n==========Total ExecutionTime==========\n")
+    file.write("\n\n==========Total ExecutionTime==========\n")
+    print(end - start)
+    file.write(str(end - start))
+    file.close()
+    print("\n\n==========End of Execution==========\n")
+    file.write("\n\n==========End of execution==========\n")
 
 
 
