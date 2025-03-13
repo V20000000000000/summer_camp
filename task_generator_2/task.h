@@ -1,6 +1,9 @@
 #ifndef TASK_H
 #define TASK_H
 
+#include "constraint.h"
+#include <stdio.h>
+
 struct task
 {
     int id;

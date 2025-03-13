@@ -10,6 +10,20 @@
 #ifndef FACTORCOUNT_H
 #define FACTORCOUNT_H
 
+/*
+Max_hyperPeriod = 3000
+Min_hyperPeriod = 1000
+Max_utilization = 3
+Min_utilization = 1
+tasks_per_set = 20
+taskSet_count = 10
+core_number = 3
+Min_variable_heavy_task_ratio = 0
+Max_variable_heavy_task_ratio = 0.4
+heavy_task_utilization = 0.25
+*/
+
+
 int FactorCount(int n) {
     int count = 0;
     for (int i = 1; i <= n; i++) {
@@ -50,7 +64,11 @@ void setConstraint(struct constraint* c)
     // set total system utilization (between minTotalSystemUtilization and maxTotalSystemUtilization)
     float maxTotalSystemUtilization = getMaxTotalSystemUtilization();
     float minTotalSystemUtilization = getMinTotalSystemUtilization();
+
     c->totalSystemUtilization = minTotalSystemUtilization + (maxTotalSystemUtilization - minTotalSystemUtilization) * ((float)rand() / (float)RAND_MAX);
+    if (c->totalSystemUtilization < getMaxTotalSystemUtilization() - getTasksPerSet() * 0.01) {
+        c->totalSystemUtilization = maxTotalSystemUtilization + 0.01 * getTasksPerSet();
+    }
 }
 
 // get hyperperiod

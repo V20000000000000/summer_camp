@@ -43,7 +43,8 @@ int main()
         sum = 0;
         printf("==========Task Set %d==========\n", i + 1);
         randomizeTotalUtilization(&c);
-        tasksSet[i] = createTasksSet(getHyperperiod(c), getTotalSystemUtilization(c));
+        tasksSet[i] = createTasksSet(getHyperperiod(c), getTotalSystemUtilization(c)
+    );
         if (tasksSet[i] == NULL) {
             printf("Memory allocation failed\n");
             return 1;
