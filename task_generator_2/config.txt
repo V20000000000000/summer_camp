@@ -1,7 +1,7 @@
 Max_hyperPeriod = 10000
 Min_hyperPeriod = 1000
 Max_utilization = 3
-Min_utilization = 1.5
+Min_utilization = 1
 tasks_per_set = 20
 taskSet_count = 5
 core_number = 3
