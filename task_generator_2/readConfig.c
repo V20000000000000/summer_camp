@@ -68,7 +68,7 @@ void readConfig(const char *filename) {
             } else if (strcmp(trimKey, "heavy_task_utilization") == 0) {
                 c.heavyTaskUtilization = atof(trimValue);
                 printf("Heavy_task_utilization: %.2f\n", c.heavyTaskUtilization);
-            }
+            } 
         }
     }
 

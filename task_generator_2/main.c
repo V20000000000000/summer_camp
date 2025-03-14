@@ -5,6 +5,7 @@
 #include "readConfig.h"
 #include "constraint.h"
 #include "task.h"
+#include "math.h"
 
 int main()
 {
@@ -36,6 +37,7 @@ int main()
         printf("Memory allocation failed\n");
         return 1;
     }
+
     // check the sum of utilization
     float sum = 0;
     for (int i = 0; i < getTaskSetCount(); i++) {
@@ -43,8 +45,8 @@ int main()
         sum = 0;
         printf("==========Task Set %d==========\n", i + 1);
         randomizeTotalUtilization(&c);
-        tasksSet[i] = createTasksSet(getHyperperiod(c), getTotalSystemUtilization(c)
-    );
+        tasksSet[i] = createTasksSet(getHyperperiod(c), getTotalSystemUtilization(c));
+
         if (tasksSet[i] == NULL) {
             printf("Memory allocation failed\n");
             return 1;
@@ -68,10 +70,30 @@ int main()
             sum += tasksSet[i][j].utulization;
         }
 
+
+
         printf("Sum of Utilization: %f\n", sum);
         printTasksSet(tasksSet[i]);
         printf("===============================\n\n");
     }
+
+    // create multiple core according to Core_number, each core is a float, initialize to 1.0
+    float* cores = (float*)malloc(sizeof(float) * getCoreNumber());
+    if (cores == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    for (int i = 0; i < getCoreNumber(); i++) {
+        cores[i] = 1.0;
+    }
+
+    // using FF fit to allocate the task in taskset to 3 cores
+    // printf("==========FF Fit==========\n");
+    // for (int i = 0; i < getTasksPerSet; i++) {
+        
+    // }
+
+
 
     // free memory
     for (int i = 0; i < getTaskSetCount(); i++) {
