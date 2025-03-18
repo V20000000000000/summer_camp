@@ -5,6 +5,7 @@
 #include "readConfig.h"
 #include "constraint.h"
 #include "task.h"
+#include "core.h"
 
 int main()
 {
@@ -71,12 +72,113 @@ int main()
         printf("===============================\n\n");
     }
 
+    fclose(file);
+
+
+
+    /*****************************************************/
+    /********************* First Fit *********************/
+    /*****************************************************/
+    // put the tasks set into three using first fit algorithm
+    // create cores
+    struct core** cores = (struct core**)malloc(sizeof(struct core*) * getCoreNumber());
+    if (cores == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    for (int i = 0; i < getCoreNumber(); i++) {
+        cores[i] = createCore(1, 0, i+1);
+        if (cores[i] == NULL) {
+            printf("Memory allocation failed\n");
+            return 1;
+        }
+    }
+
+    // Put tasks into cores
+    for (int i = 0; i < getTaskSetCount(); i++) {        
+        for (int j = 0; j < getTasksPerSet(); j++) {
+            int coreIndex = 0;
+            while (coreIndex < getCoreNumber()) {
+                if ((getCoreUtilization(cores[coreIndex]) + tasksSet[i][j].utilization) <= 1) {
+                    addTaskToCore(cores[coreIndex], tasksSet[i][j]);
+                    break;  // 成功分配后，跳出 while，继续下一个任务
+                } else {
+                    coreIndex++;
+                }
+            }
+            
+            // 如果所有核心都满了
+            if (coreIndex >= getCoreNumber()) {
+                printf("Core is not enough to accommodate Task %d\n", tasksSet[i][j].id);
+                break;  // 终止当前任务集的分配
+            }
+        }
+        
+        printf("\n");
+
+        // print cores
+        printf("################################ First_Fit ################################\n");
+
+        for (int k = 0; k < getCoreNumber(); k++) {
+            printf("==========Core %d==========\n", k + 1);
+            printCore(cores[k]);
+            printf("===========================\n\n");
+        }
+    }
+
+    /*******************************************************/
+    /********************** Best Fit **********************/
+    /******************************************************/
+    // put the tasks set into three using best fit algorithm
+    // create cores
+    for (int i = 0; i < getCoreNumber(); i++) {
+        cores[i] = createCore(1, 0, i+1);
+        if (cores[i] == NULL) {
+            printf("Memory allocation failed\n");
+            return 1;
+        }
+    }
+
+    // Put tasks into cores
+    for (int i = 0; i < getTaskSetCount(); i++) {        
+        for (int j = 0; j < getTasksPerSet(); j++) {
+            int coreIndex = 0;
+            float minCapacity = 1;
+            int bestCoreIndex = -1;
+            while (coreIndex < getCoreNumber()) {
+                if ((getCoreUtilization(cores[coreIndex]) + tasksSet[i][j].utilization) <= 1) {
+                    if (getCoreCapacity(cores[coreIndex]) < minCapacity) {
+                        minCapacity = getCoreCapacity(cores[coreIndex]);
+                        bestCoreIndex = coreIndex;
+                    }
+                }
+                coreIndex++;
+            }
+            if (bestCoreIndex != -1) {
+                addTaskToCore(cores[bestCoreIndex], tasksSet[i][j]);
+            } else {
+                printf("Core is not enough to accommodate Task %d\n", tasksSet[i][j].id);
+                break;  // 终止当前任务集的分配
+            }
+        }
+    }
+        
+    printf("\n");
+
+    // print cores
+    printf("################################ Best_Fit ################################\n");
+
+    for (int k = 0; k < getCoreNumber(); k++) {
+        printf("==========Core %d==========\n", k + 1);
+        printCore(cores[k]);
+        printf("===========================\n\n");
+    }
+
+
     // free memory
     for (int i = 0; i < getTaskSetCount(); i++) {
         free(tasksSet[i]);
     }
-
-    fclose(file);
 
     return 0;
 }
