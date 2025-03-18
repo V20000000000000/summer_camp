@@ -9,9 +9,8 @@ struct config
     int teskSet_count;
     float maxTotalSystemUtilization;
     float minTotalSystemUtilization;
+    float heavy_task_ratio;
     int core_number;
-    float minVariableHeavyTaskRatio;
-    float maxVariableHeavyTaskRatio;
     float heavyTaskUtilization;
 };
 
@@ -24,8 +23,7 @@ int getTaskSetCount();
 float getMaxTotalSystemUtilization();
 float getMinTotalSystemUtilization();
 int getCoreNumber();
-float getMinVariableHeavyTaskRatio();
-float getMaxVariableHeavyTaskRatio();
 float getHeavyTaskUtilization();
+float getHeavyTaskRatio();
 
 #endif // READCONFIG_H

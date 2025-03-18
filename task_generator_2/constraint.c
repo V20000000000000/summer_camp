@@ -62,13 +62,7 @@ void setConstraint(struct constraint* c)
     c->hyperperiod = hyperperiod;
 
     // set total system utilization (between minTotalSystemUtilization and maxTotalSystemUtilization)
-    float maxTotalSystemUtilization = getMaxTotalSystemUtilization();
-    float minTotalSystemUtilization = getMinTotalSystemUtilization();
-
-    c->totalSystemUtilization = minTotalSystemUtilization + (maxTotalSystemUtilization - minTotalSystemUtilization) * ((float)rand() / (float)RAND_MAX);
-    if (c->totalSystemUtilization < getMaxTotalSystemUtilization() - getTasksPerSet() * 0.01) {
-        c->totalSystemUtilization = maxTotalSystemUtilization + 0.01 * getTasksPerSet();
-    }
+    c->totalSystemUtilization = 0;
 }
 
 // get hyperperiod
@@ -83,10 +77,8 @@ float getTotalSystemUtilization(struct constraint c)
     return c.totalSystemUtilization;
 }
 
-// reset total system utilization
-void randomizeTotalUtilization(struct constraint* c)
+// set total system utilization
+void setTotalSystemUtilization(struct constraint* c, float totalSystemUtilization)
 {
-    float maxTotalSystemUtilization = getMaxTotalSystemUtilization();
-    float minTotalSystemUtilization = getMinTotalSystemUtilization();
-    c->totalSystemUtilization = minTotalSystemUtilization + (maxTotalSystemUtilization - minTotalSystemUtilization) * ((float)rand() / (float)RAND_MAX);
+    c->totalSystemUtilization = totalSystemUtilization;
 }

@@ -6,7 +6,7 @@ struct task
     int id;
     int period;
     int wcet; // worst case execution time
-    float utulization;
+    float utilization;
 };
 
 //create # of tasks

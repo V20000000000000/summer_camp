@@ -59,12 +59,9 @@ void readConfig(const char *filename) {
             } else if (strcmp(trimKey, "core_number") == 0) {
                 c.core_number = atoi(trimValue);
                 printf("Core_number: %d\n", c.core_number);
-            } else if (strcmp(trimKey, "Min_variable_heavy_task_ratio") == 0) {
-                c.minVariableHeavyTaskRatio = atof(trimValue);
-                printf("Min_variable_heavy_task_ratio: %.2f\n", c.minVariableHeavyTaskRatio);
-            } else if (strcmp(trimKey, "Max_variable_heavy_task_ratio") == 0) {
-                c.maxVariableHeavyTaskRatio = atof(trimValue);
-                printf("Max_variable_heavy_task_ratio: %.2f\n", c.maxVariableHeavyTaskRatio);
+            } else if (strcmp(trimKey, "heavy_task_ratio") == 0) {
+                c.heavy_task_ratio = atof(trimValue);
+                printf("heavy_task_ratio: %.2f\n", c.heavy_task_ratio);
             } else if (strcmp(trimKey, "heavy_task_utilization") == 0) {
                 c.heavyTaskUtilization = atof(trimValue);
                 printf("Heavy_task_utilization: %.2f\n", c.heavyTaskUtilization);
@@ -83,8 +80,7 @@ int getTaskSetCount() { return c.teskSet_count; }
 float getMaxTotalSystemUtilization() { return c.maxTotalSystemUtilization; }
 float getMinTotalSystemUtilization() { return c.minTotalSystemUtilization; }
 int getCoreNumber() { return c.core_number; }
-float getMinVariableHeavyTaskRatio() { return c.minVariableHeavyTaskRatio; }
-float getMaxVariableHeavyTaskRatio() { return c.maxVariableHeavyTaskRatio; }
+float getHeavyTaskRatio() { return c.heavy_task_ratio; }
 float getHeavyTaskUtilization() { return c.heavyTaskUtilization; }
 
 

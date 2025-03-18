@@ -158,7 +158,7 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
         int index = rand() % numTasks;
         tasks[i].period = selectedFactors[index];
         tasks[i].wcet = tasks[i].period * utilizations[i];
-        tasks[i].utulization = utilizations[i];
+        tasks[i].utilization = utilizations[i];
     }
 
     free(utilizations);
@@ -170,6 +170,6 @@ void printTasksSet(struct task* tasks) {
     int numTasks;
     numTasks = getTasksPerSet();
     for (int i = 0; i < numTasks; i++) {
-        printf("Task %d: period=%d, wcet=%d, utilization=%f\n", tasks[i].id, tasks[i].period, tasks[i].wcet, tasks[i].utulization);
+        printf("Task %d: period=%d, wcet=%d, utilization=%f\n", tasks[i].id, tasks[i].period, tasks[i].wcet, tasks[i].utilization);
     }
 }

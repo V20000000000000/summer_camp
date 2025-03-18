@@ -42,9 +42,7 @@ int main()
 
         sum = 0;
         printf("==========Task Set %d==========\n", i + 1);
-        randomizeTotalUtilization(&c);
-        tasksSet[i] = createTasksSet(getHyperperiod(c), getTotalSystemUtilization(c)
-    );
+        tasksSet[i] = createTasksSet(c);
         if (tasksSet[i] == NULL) {
             printf("Memory allocation failed\n");
             return 1;
@@ -65,7 +63,7 @@ int main()
         fprintf(file, "};\n\n");
 
         for (int j = 0; j < getTasksPerSet(); j++) {
-            sum += tasksSet[i][j].utulization;
+            sum += tasksSet[i][j].utilization;
         }
 
         printf("Sum of Utilization: %f\n", sum);
