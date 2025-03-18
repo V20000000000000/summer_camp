@@ -148,7 +148,6 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
     printf("Total System Utilization: %f\n", totalSystemUtilization);
 
     free(selectedFactors);
-    // free(utilizations);
 
     return tasks;
 }
