@@ -158,19 +158,23 @@ int main()
     // Put tasks into cores
     for (int i = 0; i < getTaskSetCount(); i++) {        
         for (int j = 0; j < getTasksPerSet(); j++) {
-            // find min capacity which can accommodate the task
-            int minIndex = 0;
+            int minIndex = -1;  // 初始為 -1 表示還沒找到合適的 core
             float minCapacity = 1;
+            int isFound = 0;
+
             for (int k = 0; k < getCoreNumber(); k++) {
                 if ((getCoreUtilization(cores[k]) + tasksSet[i][j].utilization) <= 1) {
-                    if (getCoreCapacity(cores[k]) < minCapacity) {
+                    isFound = 1;
+                    
+                    // 找到第一個符合條件的 core，初始化 minIndex 和 minCapacity
+                    if (minIndex == -1 || getCoreCapacity(cores[k]) < minCapacity) {
                         minCapacity = getCoreCapacity(cores[k]);
                         minIndex = k;
-                    }
+                    }      
                 }
             }
 
-            if (minCapacity == 1) {
+            if (isFound == 0) {
                 printf("Core is not enough to accommodate Task %d\n", tasksSet[i][j].id);
                 break;  
             } else {
