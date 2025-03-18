@@ -85,22 +85,27 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
     // generate heavy task
     float heavyRatio = 0.3;
     int heavyTaskCount = (int)(numTasks * heavyRatio);
-    float heavyTaskUtilization;
+    float totalUtilization = 0;
+    float Utilization = 0;
     // generate each heavy task utilization (each utilization is between 0.25 and 0.4)
-    while(1) {
+    while (totalUtilization < 1.0 || totalUtilization > 3.0)
+    {
+        totalUtilization = 0;
         for (int i = 0; i < heavyTaskCount; i++) {
-            heavyTaskUtilization = randomFloat(getHeavyTaskUtilization(), 0.4);
+            Utilization = randomFloat(getHeavyTaskUtilization(), 0.4);
             tasks[i].id = i + 1;
             tasks[i].period = selectedFactors[i];
-            tasks[i].wcet = tasks[i].period * heavyTaskUtilization;
-            tasks[i].utulization = heavyTaskUtilization;
-            totalHeavyUtilization += heavyTaskUtilization;
+            tasks[i].wcet = tasks[i].period * Utilization;
+            tasks[i].utulization = Utilization;
+            totalUtilization += Utilization;
         }
-        if (totalHeavyUtilization <= totalSystemUtilization) {
-            break;
-        }else
-        {
-            totalHeavyUtilization = 0;
+        for (int j = heavyTaskCount; j < getTasksPerSet(); j++) {
+            Utilization = randomFloat(0, getHeavyTaskUtilization());
+            tasks[j].id = j + 1;
+            tasks[j].period = selectedFactors[j];
+            tasks[j].wcet = tasks[j].period * Utilization;
+            tasks[j].utulization = Utilization;
+            totalUtilization += Utilization;
         }
     }
 
@@ -110,30 +115,24 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
                tasks[i].id, tasks[i].period, tasks[i].wcet, tasks[i].utulization);
     }
 
-    // generating light task 
-    totalLightUtilization = totalSystemUtilization - totalHeavyUtilization;
-    float lightTaskUtilization;
-    float sum = 0; 
-    while(1) {
-        for (int i = heavyTaskCount; i < (numTasks - 1); i++) {
-            lightTaskUtilization = randomFloat(0, fmin(getHeavyTaskUtilization(), totalLightUtilization - sum));
-            tasks[i].id = i + 1;
-            tasks[i].period = selectedFactors[i];
-            tasks[i].wcet = tasks[i].period * lightTaskUtilization;
-            tasks[i].utulization = lightTaskUtilization;
-            sum += lightTaskUtilization;
-        }
-        if ((sum < totalLightUtilization) && (totalLightUtilization - sum) < getHeavyTaskUtilization()) {
-            tasks[numTasks - 1].id = numTasks;
-            tasks[numTasks - 1].period = selectedFactors[numTasks - 1];
-            tasks[numTasks - 1].wcet = tasks[numTasks - 1].period * (totalLightUtilization - sum);
-            tasks[numTasks - 1].utulization = totalLightUtilization - sum;
-            break;
-        }else
-        {
-            sum = 0;
-        }
-    }
+    // generate each light task utilization according to average of totalLightUtilization
+    // generate some of random number, and the sum of them must be zero
+    // float* utilizations = (float*)malloc(sizeof(float) * (numTasks - heavyTaskCount));
+    // if (utilizations == NULL) {
+    //     printf("utilizations Memory allocation failed\n");
+    //     free(tasks);
+    //     free(selectedFactors);
+    //     return NULL;
+    // }
+    // float sum = 0;
+    // for (int i = 0; i < numTasks - heavyTaskCount; i++) {
+    //     utilizations[i] = randomFloat(0, totalLightUtilization / (numTasks - heavyTaskCount));
+    //     sum += utilizations[i];
+    // }
+    // // normalize the utilizations
+    // for (int i = 0; i < numTasks - heavyTaskCount; i++) {
+    //     utilizations[i] = utilizations[i] / sum * totalLightUtilization;
+    // }
 
     // print light task utilization
     for (int i = heavyTaskCount; i < numTasks; i++) {
