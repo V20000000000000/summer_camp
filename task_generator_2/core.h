@@ -28,7 +28,7 @@ int getCoreTaskCount(struct core* c);
 int getCoreId(struct core* c);
 
 // initialize core
-void initCore(struct core* c);
+void initCore(struct core* c, float capacity, float utilization, int id);
 
 
 

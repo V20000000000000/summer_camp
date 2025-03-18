@@ -86,6 +86,11 @@ int main()
         printf("Memory allocation failed\n");
         return 1;
     }
+
+    // initialize cores
+    // for (int i = 0; i < getCoreNumber(); i++) {
+    //     initCore(cores[i], 1, 0, i+1);
+    // }
     for (int i = 0; i < getCoreNumber(); i++) {
         cores[i] = createCore(1, 0, i+1);
         if (cores[i] == NULL) {
@@ -101,16 +106,16 @@ int main()
             while (coreIndex < getCoreNumber()) {
                 if ((getCoreUtilization(cores[coreIndex]) + tasksSet[i][j].utilization) <= 1) {
                     addTaskToCore(cores[coreIndex], tasksSet[i][j]);
-                    break;  // 成功分配后，跳出 while，继续下一个任务
+                    break;  
                 } else {
                     coreIndex++;
                 }
             }
             
-            // 如果所有核心都满了
+            // if core full
             if (coreIndex >= getCoreNumber()) {
                 printf("Core is not enough to accommodate Task %d\n", tasksSet[i][j].id);
-                break;  // 终止当前任务集的分配
+                break;  
             }
         }
         
@@ -131,6 +136,17 @@ int main()
     /******************************************************/
     // put the tasks set into three using best fit algorithm
     // create cores
+    // initialize cores
+    for (int i = 0; i < getCoreNumber(); i++) {
+        initCore(cores[i], 1, 0, i+1);
+    }
+
+    printf("core initialize test\n");
+
+    printCore(cores[0]);
+    printCore(cores[1]);
+    printCore(cores[2]);
+
     for (int i = 0; i < getCoreNumber(); i++) {
         cores[i] = createCore(1, 0, i+1);
         if (cores[i] == NULL) {
@@ -142,23 +158,23 @@ int main()
     // Put tasks into cores
     for (int i = 0; i < getTaskSetCount(); i++) {        
         for (int j = 0; j < getTasksPerSet(); j++) {
-            int coreIndex = 0;
+            // find min capacity which can accommodate the task
+            int minIndex = 0;
             float minCapacity = 1;
-            int bestCoreIndex = -1;
-            while (coreIndex < getCoreNumber()) {
-                if ((getCoreUtilization(cores[coreIndex]) + tasksSet[i][j].utilization) <= 1) {
-                    if (getCoreCapacity(cores[coreIndex]) < minCapacity) {
-                        minCapacity = getCoreCapacity(cores[coreIndex]);
-                        bestCoreIndex = coreIndex;
+            for (int k = 0; k < getCoreNumber(); k++) {
+                if ((getCoreUtilization(cores[k]) + tasksSet[i][j].utilization) <= 1) {
+                    if (getCoreCapacity(cores[k]) < minCapacity) {
+                        minCapacity = getCoreCapacity(cores[k]);
+                        minIndex = k;
                     }
                 }
-                coreIndex++;
             }
-            if (bestCoreIndex != -1) {
-                addTaskToCore(cores[bestCoreIndex], tasksSet[i][j]);
-            } else {
+
+            if (minCapacity == 1) {
                 printf("Core is not enough to accommodate Task %d\n", tasksSet[i][j].id);
-                break;  // 终止当前任务集的分配
+                break;  
+            } else {
+                addTaskToCore(cores[minIndex], tasksSet[i][j]);
             }
         }
     }

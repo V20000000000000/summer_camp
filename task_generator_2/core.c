@@ -70,9 +70,13 @@ int getCoreId(struct core* c) {
     return c->id;
 }
 
-void initCore(struct core* c) {
-    c->capacity = 0;
-    c->utilization = 0;
+void initCore(struct core* c, float capacity, float utilization, int id) {
+
+    c->capacity = capacity;
+    c->utilization = utilization;
     c->taskInCore = NULL;
     c->taskCount = 0;
+    c->id = id;
+
+    return c;
 }
