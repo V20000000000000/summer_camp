@@ -66,8 +66,8 @@ void setConstraint(struct constraint* c)
     float minTotalSystemUtilization = getMinTotalSystemUtilization();
 
     c->totalSystemUtilization = minTotalSystemUtilization + (maxTotalSystemUtilization - minTotalSystemUtilization) * ((float)rand() / (float)RAND_MAX);
-    if (c->totalSystemUtilization < getMaxTotalSystemUtilization() - getTasksPerSet() * 0.01) {
-        c->totalSystemUtilization = maxTotalSystemUtilization + 0.01 * getTasksPerSet();
+    if (c->totalSystemUtilization < getMaxTotalSystemUtilization()) {
+        c->totalSystemUtilization = maxTotalSystemUtilization;
     }
 }
 

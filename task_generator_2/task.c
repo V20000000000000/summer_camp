@@ -133,6 +133,30 @@ struct task* createTasksSet(int hyperperiod, float totalSystemUtilization) {
     // for (int i = 0; i < numTasks - heavyTaskCount; i++) {
     //     utilizations[i] = utilizations[i] / sum * totalLightUtilization;
     // }
+    // generating light task 
+    totalLightUtilization = totalSystemUtilization - totalHeavyUtilization;
+    float lightTaskUtilization;
+    float sum = 0; 
+    while(1) {
+        for (int i = heavyTaskCount; i < (numTasks - 1); i++) {
+            lightTaskUtilization = randomFloat(0, totalLightUtilization - sum);
+            tasks[i].id = i + 1;
+            tasks[i].period = selectedFactors[i];
+            tasks[i].wcet = tasks[i].period * lightTaskUtilization;
+            tasks[i].utulization = lightTaskUtilization;
+            sum += lightTaskUtilization;
+        }
+        if ((sum < totalLightUtilization) && ((totalLightUtilization - sum) < getHeavyTaskUtilization())) {
+            tasks[numTasks - 1].id = numTasks;
+            tasks[numTasks - 1].period = selectedFactors[numTasks - 1];
+            tasks[numTasks - 1].wcet = tasks[numTasks - 1].period * (totalLightUtilization - sum);
+            tasks[numTasks - 1].utulization = totalLightUtilization - sum;
+            break;
+        }else
+        {
+            sum = 0;
+        }
+    }
 
     // print light task utilization
     for (int i = heavyTaskCount; i < numTasks; i++) {
