@@ -77,6 +77,8 @@ int main()
 
     fclose(file);
 
+    FILE* utilizationFile = fopen("utilization.txt", "w");
+
 
 
     /*****************************************************/
@@ -117,7 +119,7 @@ int main()
             
             // if core full
             if (coreIndex >= getCoreNumber()) {
-                printf("Core is not enough to accommodate Task %d\n", tasksSet[i][j].id);
+                printf("\"ERROR Task : %d\" Add into cpu fault\n", tasksSet[i][j].id);
                 break;  
             }
         }
@@ -126,11 +128,20 @@ int main()
 
         // print cores
         printf("################################ First_Fit ################################\n");
+        if(utilizationFile != NULL) {
+            fprintf(utilizationFile, "\nFirst_Fit\n");
+        }
 
         for (int k = 0; k < getCoreNumber(); k++) {
             printf("==========Core %d==========\n", k + 1);
             printCore(cores[k]);
             printf("===========================\n\n");
+
+            if(utilizationFile != NULL) {
+                fprintf(utilizationFile, "Core %d\n", k + 1);
+                fprintf(utilizationFile, "utilization of core %d: %f\n", cores[k]->id, getCoreUtilization(cores[k]));
+            }
+            
         }
     }
 
@@ -178,7 +189,10 @@ int main()
             }
 
             if (isFound == 0) {
-                printf("Core is not enough to accommodate Task %d\n", tasksSet[i][j].id);
+                printf("\"ERROR Task : %d\" Add into cpu fault\n", tasksSet[i][j].id);
+                if (file != NULL) {
+                    fprintf(file, "\"ERROR Task : %d\" Add into cpu fault\n", tasksSet[i][j].id);
+                }
                 break;  
             } else {
                 addTaskToCore(cores[minIndex], tasksSet[i][j]);
@@ -190,11 +204,94 @@ int main()
 
     // print cores
     printf("################################ Best_Fit ################################\n");
+    if (utilizationFile != NULL) {
+        fprintf(utilizationFile, "\nBest_Fit\n");
+    }
 
     for (int k = 0; k < getCoreNumber(); k++) {
         printf("==========Core %d==========\n", k + 1);
         printCore(cores[k]);
         printf("===========================\n\n");
+
+        if (utilizationFile != NULL) {
+            fprintf(utilizationFile, "Core %d\n", k + 1);
+            fprintf(utilizationFile, "utilization of core %d: %f\n", cores[k]->id, getCoreUtilization(cores[k]));
+        }
+    }
+
+    
+    /*******************************************************/
+    /********************** Worst Fit **********************/
+    /******************************************************/
+    // put the tasks set into three using best fit algorithm
+    // create cores
+    // initialize cores
+    for (int i = 0; i < getCoreNumber(); i++) {
+        initCore(cores[i], 1, 0, i+1);
+    }
+
+    printf("core initialize test\n");
+
+    printCore(cores[0]);
+    printCore(cores[1]);
+    printCore(cores[2]);
+
+    for (int i = 0; i < getCoreNumber(); i++) {
+        cores[i] = createCore(1, 0, i+1);
+        if (cores[i] == NULL) {
+            printf("Memory allocation failed\n");
+            return 1;
+        }
+    }
+
+    // Put tasks into cores
+    for (int i = 0; i < getTaskSetCount(); i++) {        
+        for (int j = 0; j < getTasksPerSet(); j++) {
+            int minIndex = -1;  // 初始為 -1 表示還沒找到合適的 core
+            float maxCapacity = 0;
+            int isFound = 0;
+
+            for (int k = 0; k < getCoreNumber(); k++) {
+                if ((getCoreUtilization(cores[k]) + tasksSet[i][j].utilization) <= 1) {
+                    isFound = 1;
+                    
+                    // 找到第一個符合條件的 core，初始化 minIndex 和 minCapacity
+                    if (minIndex == -1 || getCoreCapacity(cores[k]) > maxCapacity) {
+                        maxCapacity = getCoreCapacity(cores[k]);
+                        minIndex = k;
+                    }      
+                }
+            }
+
+            if (isFound == 0) {
+                printf("\"ERROR Task : %d\" Add into cpu fault\n", tasksSet[i][j].id);
+                if (file != NULL) {
+                    fprintf(file, "\"ERROR Task : %d\" Add into cpu fault\n", tasksSet[i][j].id);
+                }
+                break;  
+            } else {
+                addTaskToCore(cores[minIndex], tasksSet[i][j]);
+            }
+        }
+    }
+        
+    printf("\n");
+
+    // print cores
+    printf("################################ Worst_Fit ################################\n");
+    if (utilizationFile != NULL) {
+        fprintf(utilizationFile, "\nWorst_Fit\n");
+    }
+
+    for (int k = 0; k < getCoreNumber(); k++) {
+        printf("==========Core %d==========\n", k + 1);
+        printCore(cores[k]);
+        printf("===========================\n\n");
+
+        if (utilizationFile != NULL) {
+            fprintf(utilizationFile, "Core %d\n", k + 1);
+            fprintf(utilizationFile, "utilization of core %d: %f\n", cores[k]->id, getCoreUtilization(cores[k]));
+        }
     }
 
 
@@ -202,6 +299,9 @@ int main()
     for (int i = 0; i < getTaskSetCount(); i++) {
         free(tasksSet[i]);
     }
+
+    fclose(utilizationFile);
+
 
     return 0;
 }
