@@ -5,6 +5,5 @@ Min_utilization = 1
 tasks_per_set = 20
 taskSet_count = 1
 core_number = 3
-Min_variable_heavy_task_ratio = 0
-Max_variable_heavy_task_ratio = 0.4
+heavy_task_ratio = 0.4
 heavy_task_utilization = 0.25

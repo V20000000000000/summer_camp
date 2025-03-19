@@ -64,7 +64,7 @@ int main()
         fprintf(file, "};\n\n");
 
         for (int j = 0; j < getTasksPerSet(); j++) {
-            sum += tasksSet[i][j].utulization;
+            sum += tasksSet[i][j].utilization;
         }
 
         printf("Sum of Utilization: %f\n", sum);
