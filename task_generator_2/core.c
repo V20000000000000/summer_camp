@@ -78,5 +78,4 @@ void initCore(struct core* c, float capacity, float utilization, int id) {
     c->taskCount = 0;
     c->id = id;
 
-    return c;
 }
